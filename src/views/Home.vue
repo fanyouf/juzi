@@ -3,7 +3,7 @@
         <header><h1>日拱一卒</h1></header> 
         <div class="slide-inner">
             <div class="cover-photo-box">
-              <img class="cover-photo" src="./cover-06.jpg" alt="" />
+              <img class="cover-photo" :src="getAssetURL()" alt="" />
               <ul class="old-calendar">
                 <li>{{ oldYear }}</li>
                 <li>{{ oldMonth }}</li>
@@ -13,7 +13,7 @@
             </div>
             <div class="date-box">
               <span class="huge-day">{{ newDay }}</span>
-              <span class="date">{{ newYear }}.{{ newMonth }}&nbsp;{{ newDay }} {{ ncWeek }}</span>
+              <span class="date">{{ newYear }}.{{ newMonth }}.{{ newDay }} {{ ncWeek }}</span>
             </div>
             <div class="content-box">
               <p class="sentence">{{ curWord.w }}</p>
@@ -29,9 +29,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import {computed, onMounted, ref } from 'vue'
 import { getWord } from '../api/index'
-import words from '../data/data.json'
 import calendarFormatter from '../utils/calendarFormatter'
 const dt = new Date()
 
@@ -47,9 +46,11 @@ const newDay = nongli.cDay
 const ncWeek = nongli.ncWeek
 const curWord = ref({})
 onMounted(() => curWord.value = getWord())
-
+// const src = computed(() => require('../assets/cover-06.jpg'))
+const getAssetURL = () => {
+    return new URL(`../assets/cover-${newMonth}.jpg`, import.meta.url).href
+}
 </script>
-
 
 <style lang="less" scoped>
 .home {
@@ -66,7 +67,7 @@ onMounted(() => curWord.value = getWord())
     line-height: 20px;
     height: 20px;
     h1{
-        font-size: 20px;
+        font-size: 18px;
         font-weight: normal;
         color: #555;
     }
@@ -146,7 +147,8 @@ onMounted(() => curWord.value = getWord())
     }
     .content-box {
       position: absolute;
-      top: 60%;
+      top: 65%;
+      line-height: 30px;
       left: 50%;
       z-index: 2;
       transform: translate(-50%, -50%);
@@ -162,5 +164,4 @@ onMounted(() => curWord.value = getWord())
       }
     }
 }
-
 </style>
