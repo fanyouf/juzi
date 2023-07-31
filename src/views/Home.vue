@@ -3,7 +3,7 @@
         <header><h1>日拱一卒</h1></header> 
         <div class="slide-inner">
             <div class="cover-photo-box">
-              <img class="cover-photo" :src="getAssetURL()" alt="" />
+              <img class="cover-photo" :src="imgUrl" alt="" />
               <ul class="old-calendar">
                 <li>{{ oldYear }}</li>
                 <li>{{ oldMonth }}</li>
@@ -47,8 +47,24 @@ const ncWeek = nongli.ncWeek
 const curWord = ref({})
 onMounted(() => curWord.value = getWord())
 // const src = computed(() => require('../assets/cover-06.jpg'))
+// const imgURLAPI = 'http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=3'
+const imgURLAPI = 'https://bing.biturl.top/?resolution=1366&format=json&index=0&mkt=zh-CN'
+const imgUrl = ref(new URL(`../assets/cover-5.jpg`, import.meta.url).href)
+onMounted(()=>{
+  getAssetURL()
+})
 const getAssetURL = () => {
-    return new URL(`../assets/cover-${newMonth}.jpg`, import.meta.url).href
+  fetch(imgURLAPI)
+  .then(response => response.json())
+  .then(data => {
+    // 处理返回的数据
+    // console.log(data.url)
+    imgUrl.value = data.url
+  })
+  .catch(error => {
+    // 处理请求错误
+  });
+    // return new URL(`../assets/cover-${newMonth}.jpg`, import.meta.url).href
 }
 </script>
 
