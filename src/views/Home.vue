@@ -105,9 +105,6 @@ const shareImg = async () => {
   width: 80%;
 }
 footer{
-  position: fixed;
-  left:0px;
-  bottom: 80vw;
   width: 100vw;
   font-size: 12px;
   color: #ccc;
@@ -192,7 +189,7 @@ footer{
   }
 
   .content-box {
-    padding: 2vw;
+    padding: 4vw;
     line-height: 30px;
     text-align: left;
     max-height: 50vh;
