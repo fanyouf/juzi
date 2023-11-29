@@ -11,12 +11,15 @@
         <div class="item">{{ oldMonth }}</div>
         <div class="item">{{ oldDay }}</div>
       </div>
-      <div class="huge-day">{{ newDay }}</div>
+      <!-- <div class="huge-day">{{ newDay }}</div> -->
+      <HugeDay  :huge-day="newDay"/>
+    
     </div>
     <div class="date-box">
-      <div class="huge-day">{{ newDay }}</div>
+      <!-- <div class="huge-day">{{ newDay }}</div> -->
       <div class="date">{{ newYear }}.{{ newMonth }}.{{ newDay }} {{ ncWeek }}</div>
     </div>
+
     <div class="content-box">
       <p class="sentence">{{ curWord.w }}</p>
       <p class="works-info" v-if="curWord.author">
@@ -31,6 +34,7 @@
 </template>
 
 <script setup>
+import HugeDay from './HugeDay.vue'
 import { autoPicture } from '../utils/export2Image'
 import { computed, onMounted, ref } from 'vue'
 import { getWord } from '../api/index'
@@ -135,7 +139,6 @@ footer{
     width: 100vw;
     aspect-ratio: 1366/768;
     position: relative;
-    overflow: hidden;
     .cover-photo {
       width: 100%;
     }
@@ -190,7 +193,7 @@ footer{
 
   .content-box {
     padding: 4vw;
-    line-height: 30px;
+    line-height: 2em;
     text-align: left;
     max-height: 50vh;
     font-size: 4.2vw;
